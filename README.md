@@ -33,7 +33,7 @@ Simply create a new user. Despite what is claimed in the documentation, all vari
 ### Update a contact
 Update a user. This relies on the `get_contact_by_email()` function below. Hence we cannot update the user's email this way. All variables but 'email' are optional.
 
-    update_contact(
+    agilecrm.update_contact(
         first_name='Steve',
         last_name='Smith',
         email='john@doe.com',
