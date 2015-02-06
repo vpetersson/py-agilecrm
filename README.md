@@ -44,12 +44,9 @@ Update a user. This relies on the `get_contact_by_email()` function below. Hence
 ## Get a user (by email)
 This will get the user by email and return the user object as JSON.
 
-
-    import agilecrm
     agilecrm.get_contact_by_email('john@doe.com')
 
 ## Add a tag
 This will add the tag 'awesome_user' to the user 'john@doe.com'. Both variables are required.
 
-    import agilecrm
-    add_tag('john@doe.com', 'awesome_user')
+    agilecrm.add_tag('john@doe.com', 'awesome_user')
