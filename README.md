@@ -1,8 +1,8 @@
-# AgileCRM Python library
-Python library for [AgileCRM](https://www.agilecrm.com/) based on the [rest-api documentation](https://github.com/agilecrm/rest-api)
+# Agile CRM Python library
+Python library for [Agile CRM](https://www.agilecrm.com/) based on the [rest-api documentation](https://github.com/agilecrm/rest-api).
 
 ## Status
-The is something I hacked together one night. It should be considered work-in-progress, so use with care.
+The is something I hacked together one night. This library should be considered work-in-progress, so use with care.
 
 ## Installation
 Clone the repo as a sub-module inside your project.
@@ -13,7 +13,6 @@ Install the Python requirements.
 
 ## Configuration
 This script depends on the variables provided in `settings.py`. These can be overridden in `site_settings.py`.
-
 
 ## Usage
 First, you need to import the module. This may vary depending on your paths etc, but something like:
@@ -31,7 +30,7 @@ Simply create a new user. Despite what is claimed in the documentation, all vari
         company='Foobar Inc')
 
 ### Update a contact
-Update a user. This relies on the `get_contact_by_email()` function below. Hence we cannot update the user's email this way. All variables but 'email' are optional.
+Update a user object.
 
     agilecrm.update_contact(
         first_name='Steve',
