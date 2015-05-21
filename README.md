@@ -2,7 +2,7 @@
 Python library for [Agile CRM](https://www.agilecrm.com/) based on the [rest-api documentation](https://github.com/agilecrm/rest-api).
 
 ## Status
-The is something I hacked together one night. This library should be considered work-in-progress, so use with care.
+We use this in production for [Screenly](https://www.screenlyapp.com), and it works fine. Still a bit rough around the corners, but it does indeed work.
 
 ## Installation
 Clone the repo as a sub-module inside your project.
@@ -28,6 +28,14 @@ Simply create a new user. Despite what is claimed in the documentation, all vari
         email='john@doe.com',
         tags=['signed_up'],
         company='Foobar Inc')
+
+You can also use custom fields (must be created in Agile CRM first):
+
+    agilecrm.create_contact(
+        first_name='John',
+        custom = {
+          'SomeField': 'Foobar'
+        }
 
 ### Update a contact
 Update a user object.
