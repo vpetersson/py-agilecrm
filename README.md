@@ -45,6 +45,11 @@ This will get the user by email and return the user object as JSON.
 
     agilecrm.get_contact_by_email('john@doe.com')
 
+## Get a user (by UUID)
+This will get the user by UUID and return the user object as JSON.
+
+    agilecrm.get_contact_by_uuid(1234)
+
 ## Add a tag
 This will add the tag 'awesome_user' to the user 'john@doe.com'. Both variables are required.
 
