@@ -79,7 +79,7 @@ def create_contact(first_name=None, last_name=None, email=None, tags=None, compa
 
 
 
-def update_contact(uuid=None, first_name=None, last_name=None, email=None, tags=None, company=None, custom={}, score=0):
+def update_contact(uuid=None, first_name=None, last_name=None, email=None, tags=None, company=None, custom={}, score=None:
     """
     Update a contact. email is required.
     Returns the response if successful, otherwise log error and return None.
