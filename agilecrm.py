@@ -78,7 +78,8 @@ def create_contact(first_name=None, last_name=None, email=None, tags=None, compa
         return None
 
 
-def update_contact(uuid=None, first_name=None, last_name=None, email=None, tags=None, company=None, custom={}):
+
+def update_contact(uuid=None, first_name=None, last_name=None, email=None, tags=None, company=None, custom={}, score=None:
     """
     Update a contact. email is required.
     Returns the response if successful, otherwise log error and return None.
@@ -109,6 +110,9 @@ def update_contact(uuid=None, first_name=None, last_name=None, email=None, tags=
 
         payload['properties'] = [d for d in payload['properties'] if d['name'] != key] + new_properties
 
+    def update_score(score):
+        payload['lead_score'] = score
+
     tags = tags or []
     if tags:
         payload['tags'] = list(set(payload['tags'] + list(tags)))
@@ -127,6 +131,9 @@ def update_contact(uuid=None, first_name=None, last_name=None, email=None, tags=
 
     for key in custom:
         update_element(key, custom[key])
+
+    if score:
+        update_score(score)
 
     contact = requests.put(
         CONTACT_ENDPOINT,
