@@ -17,9 +17,16 @@ https://github.com/agilecrm/rest-api
 """
 
 
-def create_contact(first_name=None, last_name=None, email=None, tags=None, company=None, custom={}):
+def create_contact(
+    first_name=None,
+    last_name=None,
+    email=None,
+    tags=None,
+    company=None,
+    custom={}
+):
     """
-    Create a contact. first_name is the only required field.
+    Create a contact. 'first_name' is the only required field.
     Returns the ID if successful, otherwise return None and log the error.
     """
 
@@ -74,12 +81,23 @@ def create_contact(first_name=None, last_name=None, email=None, tags=None, compa
         result = json.loads(contact.content)
         return result['id']
     else:
-        print "Failed to create contact.\nError message:\n%s.\nError code: %i" % (contact.content, contact.status_code)
+        print('Failed to create contact.\n',
+              'Error message:\n{}\n'.format(contact.content),
+              'Error code: {}'.format(contact.status_code),
+              )
         return None
 
 
-
-def update_contact(uuid=None, first_name=None, last_name=None, email=None, tags=None, company=None, custom={}, score=None:
+def update_contact(
+    uuid=None,
+    first_name=None,
+    last_name=None,
+    email=None,
+    tags=None,
+    company=None,
+    custom={},
+    score=None
+):
     """
     Update a contact. email is required.
     Returns the response if successful, otherwise log error and return None.
@@ -95,13 +113,16 @@ def update_contact(uuid=None, first_name=None, last_name=None, email=None, tags=
         payload = get_contact_by_email(email)
 
     if not payload:
-        print "Failed to get contact %s" % email
+        print('Failed to get contact {}'.format(email))
         return None
 
     def update_element(key, value):
         new_values = set()
         if key == 'email':
-            # Email is a special case -- the email key can appear more than once. We'll keep the existing values (deduplicated).
+            """
+            Email is a special case -- the email key can appear more
+            than once. We'll keep the existing values (deduplicated).
+            """
             new_values = {d['value'] for d in payload['properties'] if d['name'] == 'email'}
 
         new_values.add(value)
@@ -144,7 +165,10 @@ def update_contact(uuid=None, first_name=None, last_name=None, email=None, tags=
 
     # We get 200 status instead of the expected 201.
     if contact.status_code not in (200, 201):
-        print "Failed to update contact.\nError message:\n%s.\nError code: %i" % (contact.content, contact.status_code)
+        print('Failed to update contact.\n',
+              'Error message:\n{}\n'.format(contact.content),
+              'Error code: {}'.format(contact.status_code),
+              )
         return None
     return json.loads(contact.content)
 
@@ -161,7 +185,7 @@ def get_contact_by_email(email):
         -v -u {email}:{apikey} -X POST
     """
 
-    payload = "email_ids=[%s]" % email
+    payload = 'email_ids=[{}]'.format(email)
 
     headers = {
         'content-type': 'application/json',
@@ -176,7 +200,10 @@ def get_contact_by_email(email):
     )
 
     if contact.status_code != 200:
-        print "Failed to get contact.\nError message:\n%s.\nError code: %i" % (contact.content, contact.status_code)
+        print('Failed to get contact.\n',
+              'Error message:\n{}\n'.format(contact.content),
+              'Error code: {}'.format(contact.status_code)
+              )
         return None
     return json.loads(contact.content)[0]
 
@@ -203,7 +230,10 @@ def get_contact_by_uuid(uuid):
     )
 
     if contact.status_code != 200:
-        print "Failed to get contact.\nError message:\n%s.\nError code: %i" % (contact.content, contact.status_code)
+        print('Failed to get contact.\n',
+              'Error message:\n{}\n.'.format(contact.content),
+              'Error code: {}'.format(contact.status_code)
+              )
         return None
     return json.loads(contact.content)
 
@@ -221,7 +251,7 @@ def add_tag(email, tag):
 
     payload = {
         'email': email,
-        'tags': "[%s]" % tag
+        'tags': '[{}]'.format(tag)
     }
 
     headers = {
@@ -240,7 +270,10 @@ def add_tag(email, tag):
     if contact.status_code in (200, 201):
         return True
     else:
-        print "Failed to add tag.\nError message:\n%s.\nError code: %i" % (contact.content, contact.status_code)
+        print('Failed to add tag.\n',
+              'Error message:\n{}\n'.format(contact.content),
+              'Error code: {}'.format(contact.status_code),
+              )
         return None
 
 
