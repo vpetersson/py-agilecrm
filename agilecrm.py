@@ -1,11 +1,12 @@
-import requests
 import json
-import settings
+import os
+import requests
 from urlparse import urljoin
 
-APIKEY = settings.AGILECRM_APIKEY
-EMAIL = settings.AGILECRM_EMAIL
-BASEURL = settings.AGILECRM_BASEURL
+APIKEY = os.getenv('AGILECRM_APIKEY', False)
+EMAIL = os.getenv('AGILECRM_EMAIL', False)
+DOMAIN = os.getenv('AGILECRM_DOMAIN', False)
+BASEURL = 'https://{}.agilecrm.com'.format(DOMAIN)
 CONTACT_ENDPOINT = urljoin(BASEURL, '/dev/api/contacts')
 CONTACT_SEARCH_ENDPOINT = urljoin(BASEURL, '/dev/api/contacts/search/email')
 CONTACT_ADD_TAG_ENDPOINT = urljoin(BASEURL, '/dev/api/contacts/email/tags/add')
@@ -15,6 +16,14 @@ Module for dealing with AgileCRMs API.
 Documentation is available here:
 https://github.com/agilecrm/rest-api
 """
+
+# Make sure we got all required variables
+if not APIKEY:
+    print('Missing APIKEY')
+elif not EMAIL:
+    print('Missing EMAIL')
+elif not DOMAIN:
+    print('Missing DOMAIN')
 
 
 def create_contact(
@@ -278,7 +287,14 @@ def add_tag(email, tag):
 
 
 def main():
-    pass
+    if not APIKEY:
+        print('Missing APIKEY')
+    elif not EMAIL:
+        print('Missing EMAIL')
+    elif not DOMAIN:
+        print('Missing DOMAIN')
+    else:
+        pass
 
 if __name__ == '__main__':
     main()

@@ -12,7 +12,12 @@ Install the Python requirements.
     $ pip install -r /path/to/module/requirements.txt
 
 ## Configuration
-This script depends on the variables provided in `settings.py`. These can be overridden in `site_settings.py`.
+
+In order to use the module, you need to set the following environment variables:
+
+ * AGILECRM_APIKEY
+ * AGILECRM_EMAIL
+ * AGILECRM_DOMAIN
 
 ## Usage
 First, you need to import the module. This may vary depending on your paths etc, but something like:
