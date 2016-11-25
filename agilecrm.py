@@ -17,13 +17,18 @@ Documentation is available here:
 https://github.com/agilecrm/rest-api
 """
 
-# Make sure we got all required variables
-if not APIKEY:
-    print('Missing APIKEY')
-elif not EMAIL:
-    print('Missing EMAIL')
-elif not DOMAIN:
-    print('Missing DOMAIN')
+
+def is_ready():
+    if not APIKEY:
+        print('Missing APIKEY')
+        return False
+    if not EMAIL:
+        print('Missing EMAIL')
+        return False
+    if not DOMAIN:
+        print('Missing DOMAIN')
+        return False
+    return True
 
 
 def create_contact(
@@ -34,10 +39,14 @@ def create_contact(
     company=None,
     custom={}
 ):
+
     """
     Create a contact. 'first_name' is the only required field.
     Returns the ID if successful, otherwise return None and log the error.
     """
+
+    if not is_ready():
+        return False
 
     headers = {
         'content-type': 'application/json',
@@ -107,10 +116,14 @@ def update_contact(
     custom={},
     score=None
 ):
+
     """
     Update a contact. email is required.
     Returns the response if successful, otherwise log error and return None.
     """
+
+    if not is_ready():
+        return False
 
     headers = {
         'content-type': 'application/json',
@@ -194,6 +207,9 @@ def get_contact_by_email(email):
         -v -u {email}:{apikey} -X POST
     """
 
+    if not is_ready():
+        return False
+
     payload = 'email_ids=[{}]'.format(email)
 
     headers = {
@@ -228,12 +244,15 @@ def get_contact_by_uuid(uuid):
         -v -u {email}:{apikey}
     """
 
+    if not is_ready():
+        return False
+
     headers = {
         'Accept': 'application/json',
     }
 
     contact = requests.get(
-        '%s/%s' % (CONTACT_ENDPOINT, uuid),
+        '{}/{}'.format(CONTACT_ENDPOINT, uuid),
         headers=headers,
         auth=(EMAIL, APIKEY)
     )
@@ -257,6 +276,9 @@ def add_tag(email, tag):
         -d 'email=notifications@basecamp.com&tags=["testing"]'
         -v -u {email}:{apikey} -X POST
     """
+
+    if not is_ready():
+        return False
 
     payload = {
         'email': email,
@@ -287,14 +309,7 @@ def add_tag(email, tag):
 
 
 def main():
-    if not APIKEY:
-        print('Missing APIKEY')
-    elif not EMAIL:
-        print('Missing EMAIL')
-    elif not DOMAIN:
-        print('Missing DOMAIN')
-    else:
-        pass
+    pass
 
 if __name__ == '__main__':
     main()
