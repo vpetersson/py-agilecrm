@@ -1,7 +1,7 @@
 import json
 import os
 import requests
-from urlparse import urljoin
+from urllib.parse import urljoin
 
 APIKEY = os.getenv('AGILECRM_APIKEY', False)
 EMAIL = os.getenv('AGILECRM_EMAIL', False)
@@ -96,7 +96,7 @@ def create_contact(
 
     # We get 200 status instead of the expected 201.
     if contact.status_code in (200, 201):
-        result = json.loads(contact.content)
+        result = contact.json()
         return result['id']
     else:
         print('Failed to create contact.\n',
